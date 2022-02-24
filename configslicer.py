@@ -30,6 +30,12 @@ import os
 import logging
 from datetime import datetime
 
+#load definition of configlet section headers
+#the list is ORDERED, please remember to add sections of config with no dependencies
+#first in that least, and higher level dependencies last to avoid errors when pushing
+#config to the target device that has unresolved dependencies
+from trunks import TRUNKS
+
 ENV_FILE='environment.env'
 
 #input config source folder location
@@ -41,13 +47,6 @@ LOG_FOLDER=''
 LOG_FORMAT="%(message)s"
 
 TIME_FORMAT = "%m/%d/%Y-%H:%M:%S"
-
-PARENTS =  [
-			'wireless tag policy',
-			'wireless tag site',
-			'wireless profile flex',
-			'ap\s+([a-z0-9]{4}.[a-z0-9]{4}.[a-z0-9]{4})'
-			]
 
 #read in execution parameters
 dn = os.path.dirname(os.path.realpath(__file__))
@@ -67,6 +66,7 @@ try:
 	'host': env_dict['TARGET_HOST'],
 	'username': env_dict['TARGET_USERNAME'],
 	'password': env_dict['TARGET_PASSWORD'],
+	'secret': env_dict['TARGET_ENABLE'],
 	'global_delay_factor': int(env_dict['GLOBAL_DELAY_FACTOR']),
 	}
 
@@ -108,7 +108,7 @@ def crawl_children (obj: list, cli):
 			cli = crawl_children(child_obj.children, cli)
 	return cli
 
-for p in PARENTS:
+for p in TRUNKS:
 	cli = ""
 	print (f"[{timestamp()}] Parsing trunk: {p}")
 	log.info(f"---TRUNK--- {p}")

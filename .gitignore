@@ -1,2 +1,2 @@
-src_cfg/*.*
-log/*.*
+src_cfg/*.cfg
+log/*.log

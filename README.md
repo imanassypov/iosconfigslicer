@@ -23,6 +23,12 @@ TRUNKS =  [
 			]
 ```
 
+## Operation
+With the above configuration, the script is expected to execute as following:
+- in the source running configuration, extract all 'sections' of the runconfig that begin with 'wireless tag policy'
+- replicate the extracted sections of the config above to the target ip address of the device defined under environment.env
+- repeat the above for each of the subsequent config section definitions in the ordered TRUNKS list
+
 ## Requirements
 - ciscoconfparse
 - netmiko
