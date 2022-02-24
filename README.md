@@ -33,6 +33,11 @@ With the above configuration, the script is expected to execute as following:
 - ciscoconfparse
 - netmiko
 
+## Installation
+```
+pip3 install -r requirements.txt
+```
+
 
 ## References
 - http://www.pennington.net/py/ciscoconfparse/index.html
